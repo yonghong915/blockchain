@@ -12,24 +12,17 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   - Name: OrdererOrg1
     Domain: org1.fyh.com
+    CA:
+        Country: CN
+        Province: Sichuan
+        Locality: Chengdu
     # ---------------------------------------------------------------------------
     # "Specs" - See PeerOrgs below for complete description
     # ---------------------------------------------------------------------------
-    #Specs:
-    #  - Hostname: orderer
+    Specs:
+      - Hostname: orderer
     Template:
-      Count: 2
-
-  - Name: OrdererOrg2
-    Domain: org2.fyh.com
-    # ---------------------------------------------------------------------------
-    # "Specs" - See PeerOrgs below for complete description
-    # ---------------------------------------------------------------------------
-    #Specs:
-    #  - Hostname: orderer
-    Template:
-      Count: 2
-  
+      Count: 3
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
 # ---------------------------------------------------------------------------
@@ -39,6 +32,11 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   - Name: Org1
     Domain: org1.fyh.com
+    EnableNodeOUs: true
+    CA:
+        Country: CN
+        Province: Sichuan
+        Locality: Chengdu
     # ---------------------------------------------------------------------------
     # "Specs"
     # ---------------------------------------------------------------------------
@@ -88,8 +86,12 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   - Name: Org2
     Domain: org2.fyh.com
+    EnableNodeOUs: true
+    CA:
+        Country: CN
+        Province: Sichuan
+        Locality: Chengdu
     Template:
       Count: 3
     Users:
       Count: 1
-      

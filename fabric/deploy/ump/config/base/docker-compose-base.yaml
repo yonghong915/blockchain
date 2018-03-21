@@ -1,0 +1,136 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+
+  orderer0.org1.fyh.com:
+    container_name: orderer0.org1.fyh.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_LOCALMSPID=OrdererOrg1MSP
+      
+    volumes:
+    - ./config/channel/channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+    - ./config/channel/crypto-config/ordererOrganizations/org1.fyh.com/orderers/orderer0.org1.fyh.com/msp:/var/hyperledger/orderer/msp
+    - ./config/channel/crypto-config/ordererOrganizations/org1.fyh.com/orderers/orderer0.org1.fyh.com/tls/:/var/hyperledger/orderer/tls
+    - /blockchain/data/orderer/orderer0.org1.fyh.com:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+
+  orderer1.org1.fyh.com:
+    container_name: orderer1.org1.fyh.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_LOCALMSPID=OrdererOrg1MSP
+      
+    volumes:
+    - ./config/channel/channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+    - ./config/channel/crypto-config/ordererOrganizations/org1.fyh.com/orderers/orderer1.org1.fyh.com/msp:/var/hyperledger/orderer/msp
+    - ./config/channel/crypto-config/ordererOrganizations/org1.fyh.com/orderers/orderer1.org1.fyh.com/tls/:/var/hyperledger/orderer/tls
+    - /blockchain/data/orderer/orderer1.org1.fyh.com:/var/hyperledger/production/orderer
+    ports:
+      - 8050:7050
+
+  orderer2.org1.fyh.com:
+    container_name: orderer2.org1.fyh.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_LOCALMSPID=OrdererOrg1MSP
+      
+    volumes:
+    - ./config/channel/channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+    - ./config/channel/crypto-config/ordererOrganizations/org1.fyh.com/orderers/orderer2.org1.fyh.com/msp:/var/hyperledger/orderer/msp
+    - ./config/channel/crypto-config/ordererOrganizations/org1.fyh.com/orderers/orderer2.org1.fyh.com/tls/:/var/hyperledger/orderer/tls
+    - /blockchain/data/orderer/orderer2.org1.fyh.com:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+
+  peer0.org1.fyh.com:
+    container_name: peer0.org1.fyh.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.org1.fyh.com
+      - CORE_PEER_ADDRESS=peer0.org1.fyh.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org1.fyh.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.fyh.com:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./config/channel/crypto-config/peerOrganizations/org1.fyh.com/peers/peer0.org1.fyh.com/msp:/etc/hyperledger/fabric/msp
+        - ./config/channel/crypto-config/peerOrganizations/org1.fyh.com/peers/peer0.org1.fyh.com/tls:/etc/hyperledger/fabric/tls
+        - /blockchain/data/peer/peer0.org1.fyh.com:/var/hyperledger/production
+    ports:
+      - 7051:7051
+      - 7053:7053
+
+  peer1.org1.fyh.com:
+    container_name: peer1.org1.fyh.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.org1.fyh.com
+      - CORE_PEER_ADDRESS=peer1.org1.fyh.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.fyh.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.fyh.com:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./config/channel/crypto-config/peerOrganizations/org1.fyh.com/peers/peer0.org1.fyh.com/msp:/etc/hyperledger/fabric/msp
+        - ./config/channel/crypto-config/peerOrganizations/org1.fyh.com/peers/peer0.org1.fyh.com/tls:/etc/hyperledger/fabric/tls
+        - /blockchain/data/peer/peer0.org1.fyh.com:/var/hyperledger/production
+    ports:
+      - 8051:7051
+      - 8053:7053
+
+  peer0.org2.fyh.com:
+    container_name: peer0.org2.fyh.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.org2.fyh.com
+      - CORE_PEER_ADDRESS=peer0.org2.fyh.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.fyh.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org2.fyh.com:7051
+      - CORE_PEER_LOCALMSPID=Org2MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./config/channel/crypto-config/peerOrganizations/org2.fyh.com/peers/peer0.org2.fyh.com/msp:/etc/hyperledger/fabric/msp
+        - ./config/channel/crypto-config/peerOrganizations/org2.fyh.com/peers/peer0.org2.fyh.com/tls:/etc/hyperledger/fabric/tls
+        - /blockchain/data/peer/peer0.org2.fyh.com:/var/hyperledger/production
+    ports:
+      - 9051:7051
+      - 9053:7053
+
+  peer1.org2.fyh.com:
+    container_name: peer1.org2.fyh.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.org2.fyh.com
+      - CORE_PEER_ADDRESS=peer1.org2.fyh.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org2.fyh.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.fyh.com:7051
+      - CORE_PEER_LOCALMSPID=Org2MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./config/channel/crypto-config/peerOrganizations/org2.fyh.com/peers/peer1.org2.fyh.com/msp:/etc/hyperledger/fabric/msp
+        - ./config/channel/crypto-config/peerOrganizations/org2.fyh.com/peers/peer1.org2.fyh.com/tls:/etc/hyperledger/fabric/tls
+        - /blockchain/data/peer/peer0.org1.fyh.com:/var/hyperledger/production
+    ports:
+      - 10051:7051
+      - 10053:7053
