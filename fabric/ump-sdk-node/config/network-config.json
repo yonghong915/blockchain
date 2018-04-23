@@ -1,0 +1,47 @@
+{
+	"network-config": {
+		"orderer":{
+		    "org1":{
+		        "mspid": "OrdererOrg1MSP",
+		        "orderer1":{
+				    "name":"orderer0Org1",
+				    "mspid": "OrdererOrg1MSP",
+					"url": "grpcs://192.168.56.11:7050",
+					"server-hostname": "orderer0.org1.fyh.com",
+					"tls_cacerts": "../config/channel/crypto-config/ordererOrganizations/org1.fyh.com/orderers/orderer0.org1.fyh.com/msp/tlscacerts/tlsca.org1.fyh.com-cert.pem"
+		        },
+		        "orderer2":{
+				    "name":"orderer1Org1",
+				    "mspid": "OrdererOrg1",
+					"url": "grpcs://192.168.56.11:8050",
+					"server-hostname": "orderer1.org1.fyh.com",
+					"tls_cacerts": "../config/channel/crypto-config/ordererOrganizations/org1.fyh.com/orderers/orderer1.org1.fyh.com/msp/tlscacerts/tlsca.org1.fyh.com-cert.pem"
+		        },
+		       "admin": {
+				  "keyPath": "../config/channel/crypto-config/ordererOrganizations/org1.fyh.com/users/Admin@org1.fyh.com/msp/keystore",
+				  "certPath": "../config/channel/crypto-config/ordererOrganizations/org1.fyh.com/users/Admin@org1.fyh.com/msp/signcerts"
+			    }
+		    }
+		},
+		"peer":{
+			"org1": {
+				"name": "peerOrg1",
+				"mspid": "Org1MSP",
+				"ca": {
+					"url": "https://192.168.56.11:7054",
+					"name": "ca-org1"
+				},
+				"peer0": {
+					"requests": "grpcs://192.168.56.11:7051",
+					"events": "grpcs://192.168.56.11:7053",
+					"server-hostname": "peer0.org1.fyh.com",
+					"tls_cacerts": "../config/channel/crypto-config/peerOrganizations/org1.fyh.com/peers/peer0.org1.fyh.com/msp/tlscacerts/tlsca.org1.fyh.com-cert.pem"
+				},
+				"admin": {
+					"keyPath": "../config/channel/crypto-config/peerOrganizations/org1.fyh.com/users/Admin@org1.fyh.com/msp/keystore",
+					"certPath": "../config/channel/crypto-config/peerOrganizations/org1.fyh.com/users/Admin@org1.fyh.com/msp/signcerts"
+				}
+			}
+		}
+	}
+}

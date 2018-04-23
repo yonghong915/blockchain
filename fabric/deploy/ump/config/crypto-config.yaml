@@ -22,7 +22,7 @@ OrdererOrgs:
     Specs:
       - Hostname: orderer
     Template:
-      Count: 3
+      Count: 5
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
 # ---------------------------------------------------------------------------
