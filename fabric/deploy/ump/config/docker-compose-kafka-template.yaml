@@ -285,7 +285,7 @@ services:
     volumes:
     - ./config/channel/channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
     - ./config/channel/crypto-config/ordererOrganizations/org1.fyh.com/orderers/orderer2.org1.fyh.com/msp:/var/hyperledger/orderer/msp
-    - ./config/channel/crypto-config/ordererOrganizations/org2.fyh.com/orderers/orderer2.org1.fyh.com/tls/:/var/hyperledger/orderer/tls
+    - ./config/channel/crypto-config/ordererOrganizations/org1.fyh.com/orderers/orderer2.org1.fyh.com/tls/:/var/hyperledger/orderer/tls
     ports:
       - 9050:7050
     depends_on:
@@ -294,7 +294,7 @@ services:
       - kafka2
       - kafka3
 
-  orderer2.org1.fyh.com:
+  orderer3.org1.fyh.com:
     hostname: orderer3.org1.fyh.com
     container_name: orderer3.org1.fyh.com
     image: hyperledger/fabric-orderer

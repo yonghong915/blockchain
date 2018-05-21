@@ -69,7 +69,7 @@ function generateChannelArtifacts() {
 	# Note: For some unknown reason (at least for now) the block file can't be
 	# named orderer.genesis.block or the orderer will fail to launch!
 	set -x
-	$CONFIGTXGEN -profile MultiOrgsOrdererGenesis -outputBlock $CRYPTO_CFG_PATH/channel-artifacts/genesis.block
+	$CONFIGTXGEN -profile MultiOrgsOrdererGenesis -outputBlock $CRYPTO_CFG_PATH/channel/channel-artifacts/orderer.genesis.block
     res=$?
     set +x
     if [ $res -ne 0 ]; then
@@ -81,7 +81,7 @@ function generateChannelArtifacts() {
 	echo "### Generating channel configuration transaction 'channel.tx' ###"
 	echo "#################################################################"
 	set +x
-	$CONFIGTXGEN -profile MultiOrgsChannel -outputCreateChannelTx $CRYPTO_CFG_PATH/channel-artifacts/channel.tx -channelID $CHANNEL_NAME
+	$CONFIGTXGEN -profile MultiOrgsChannel -outputCreateChannelTx $CRYPTO_CFG_PATH/channel/channel-artifacts/channel.tx -channelID $CHANNEL_NAME
     res=$?
     set +x
     if [ $res -ne 0 ]; then
@@ -93,7 +93,7 @@ function generateChannelArtifacts() {
 	echo "#######    Generating anchor peer update for Org1MSP   ##########"
 	echo "#################################################################"
 	set +x
-	$CONFIGTXGEN -profile MultiOrgsChannel -outputAnchorPeersUpdate $CRYPTO_CFG_PATH/channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
+	$CONFIGTXGEN -profile MultiOrgsChannel -outputAnchorPeersUpdate $CRYPTO_CFG_PATH/channel/channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
     set +x
     if [ $res -ne 0 ]; then
         echo "Failed to generate anchor peer update for Org1MSP..."
@@ -104,7 +104,7 @@ function generateChannelArtifacts() {
 	echo "#######    Generating anchor peer update for Org2MSP   ##########"
 	echo "#################################################################"
 	set +x
-	$CONFIGTXGEN -profile MultiOrgsChannel -outputAnchorPeersUpdate $CRYPTO_CFG_PATH/channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
+	$CONFIGTXGEN -profile MultiOrgsChannel -outputAnchorPeersUpdate $CRYPTO_CFG_PATH/channel/channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
 	set +x
     if [ $res -ne 0 ]; then
         echo "Failed to generate anchor peer update for Org2MSP..."
